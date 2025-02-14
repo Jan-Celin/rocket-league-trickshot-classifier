@@ -2,13 +2,17 @@
 
 ## Introduction
 
-The aim of this project was to train a machine learning model that can effectively classify trickshots in the video-game Rocket League.
+The aim of this project is to train a machine learning model that can effectively classify trickshots in the video-game Rocket League.
 
-The project was done as part of the Introduction to Machine Learning course at the Vienna University of Technology.
+This project was done as part of the Introduction to Machine Learning course at the Vienna University of Technology.
 
 ## Data
 
-The dataset is in tabular form (CSV), containing 297 separate trick shots. Each trickshot consists of summary statistics and arbitrarily many timesteps, each containing an in-game metric and a keyboard input. The summary statistics are the median and the skew of their trickshot's respective metrics.
+The dataset is in tabular form (CSV), consisting of two files:
+- `rocketskillshots_train.csv` - training data containing labeled trickshots;
+- `rocketskillshots_test.csv` - test data used for evaluation.
+
+Each trickshot consists of summary statistics and arbitrarily many timesteps, each containing an in-game metric and logs of keyboard inputs. The summary statistics are the median and the skew of their trickshot's respective metrics.
 
 The following in-game metrics are measured:
 
@@ -43,6 +47,11 @@ The target value of is the trickshot class, which can be one of the following:
 - 6: front flick
 - 7: musty flick
 
+Some columns contained missing values. Several methods of handling them were tested:
+- filling them with zeros,
+- filling them with the columns mean,
+- interpolation
+
 ## Approach
 
 Several different machine learning models were trained and tested, including:
@@ -53,18 +62,13 @@ Several different machine learning models were trained and tested, including:
 - Multi-layer perceptron
 - Model ensembles
 
-Hyperparameter tuning was performed for several models.
+Hyperparameter tuning was performed for several models using randomized and grid search.
 
 Since each trickshot had multiple records in the dataset, the general approach was to classify each record independently and assign the final trickshot label via majority voting. More sofisticated models could use all metrics at once to create the prediction, however, that was out of this course's scope.
 
-Several methods of handling missing values were tested:
-- filling them with zeros,
-- filling them with the columns mean,
-- interpolation
-
-The columns which contained a very large amount of missing values (>95%) were removed from the dataset.
-
 ## Results
+
+Model performance was evaluated using accuracy score and confusion matrices.
 
 Among of the five tested methods, random forest and decision tree models performed best. This can likely be attributed to the fact that those models most effectively model the algorithmical nature of the in-game trickshot assignment. 
 
