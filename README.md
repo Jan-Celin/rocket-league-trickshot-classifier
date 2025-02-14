@@ -45,8 +45,27 @@ The target value of is the trickshot class, which can be one of the following:
 
 ## Approach
 
-TODO
+Several different machine learning models were trained and tested, including:
+
+- Logistic regression
+- Decision tree
+- Random forest
+- Multi-layer perceptron
+- Model ensembles
+
+Hyperparameter tuning was performed for several models.
+
+Since each trickshot had multiple records in the dataset, the general approach was to classify each record independently and assign the final trickshot label via majority voting. More sofisticated models could use all metrics at once to create the prediction, however, that was out of this course's scope.
+
+Several methods of handling missing values were tested:
+- filling them with zeros,
+- filling them with the columns mean,
+- interpolation
+
+The columns which contained a very large amount of missing values (>95%) were removed from the dataset.
 
 ## Results
 
-TODO
+Among of the five tested methods, random forest and decision tree models performed best. This can likely be attributed to the fact that those models most effectively model the algorithmical nature of the in-game trickshot assignment. 
+
+The detailed performances of each of the models can be found in the notebook in the root of the repository.
